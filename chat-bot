@@ -1,0 +1,473 @@
+import random
+import datetime
+import webbrowser
+import os
+import math
+
+bot_name = "Ultra AI"
+
+user_name = ""
+favorite_color = ""
+favorite_food = ""
+favorite_movie = ""
+favorite_game = ""
+
+notes = []
+
+hello_responses = [
+    "Hello!",
+    "Hi there!",
+    "Hey Wesley!",
+    "Greetings!",
+    "Nice to meet you!"
+]
+
+bye_responses = [
+    "Goodbye!",
+    "See you later!",
+    "Take care!",
+    "Have a nice day!"
+]
+
+jokes = [
+    "Why do programmers hate nature? Too many bugs.",
+    "Why did Python go to school? To improve its class.",
+    "Why was the computer cold? Windows was open."
+]
+
+quotes = [
+    "Never stop learning.",
+    "Practice makes progress.",
+    "Small steps create big success.",
+    "Believe in yourself."
+]
+
+facts = [
+    "Python was created by Guido van Rossum.",
+    "AI stands for Artificial Intelligence.",
+    "The first computer bug was a real insect."
+]
+
+print("=" * 60)
+print("🤖 ULTRA AI CHATBOT")
+print("Type help to see all commands")
+print("=" * 60)
+
+def show_help():
+
+    print("""
+================ COMMANDS ================
+
+Basic Chat
+hello
+how are you
+what is your name
+bye
+
+Date and Time
+time
+date
+
+Fun
+joke
+fact
+motivate me
+coin flip
+dice
+riddle
+
+Memory
+my name is ___
+remember my color ___
+what is my color
+remember my food ___
+what is my food
+remember my movie ___
+what is my movie
+
+Utilities
+calculator
+square root
+power
+random number
+password generator
+temperature convert
+bmi
+countdown
+
+Internet
+open google
+open youtube
+open github
+open chatgpt
+
+Games
+guess number
+rock paper scissors
+
+Notes
+add note
+show notes
+clear notes
+
+Learning
+about python
+about ai
+coding tip
+
+System
+clear
+system info
+
+==========================================
+""")
+
+def calculator():
+
+    try:
+        expression = input("Enter calculation: ")
+        result = eval(expression)
+        print("Answer =", result)
+
+    except:
+        print("Invalid calculation")
+
+def square_root():
+
+    num = float(input("Enter number: "))
+    print("Square Root =", math.sqrt(num))
+
+def power():
+
+    a = int(input("Base: "))
+    b = int(input("Power: "))
+    print("Answer =", a ** b)
+
+def random_number():
+
+    start = int(input("Start: "))
+    end = int(input("End: "))
+
+    print("Random Number =", random.randint(start, end))
+
+def password_generator():
+
+    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%"
+
+    password = ""
+
+    for i in range(12):
+        password += random.choice(chars)
+
+    print("Generated Password =", password)
+
+def temperature_convert():
+
+    c = float(input("Enter Celsius: "))
+
+    f = (c * 9/5) + 32
+
+    print("Fahrenheit =", f)
+
+def bmi():
+
+    weight = float(input("Weight in kg: "))
+    height = float(input("Height in meters: "))
+
+    result = weight / (height ** 2)
+
+    print("BMI =", round(result, 2))
+
+def countdown():
+
+    num = int(input("Start countdown from: "))
+
+    while num > 0:
+        print(num)
+        num -= 1
+
+    print("Done!")
+
+def guess_number():
+
+    secret = random.randint(1, 10)
+
+    while True:
+
+        guess = int(input("Guess number 1-10: "))
+
+        if guess == secret:
+            print("Correct!")
+            break
+
+        else:
+            print("Wrong guess")
+
+def rock_paper_scissors():
+
+    choices = ["rock", "paper", "scissors"]
+
+    user = input("Choose rock/paper/scissors: ").lower()
+
+    bot = random.choice(choices)
+
+    print("Bot chose:", bot)
+
+    if user == bot:
+        print("Draw")
+
+    elif (
+        (user == "rock" and bot == "scissors") or
+        (user == "paper" and bot == "rock") or
+        (user == "scissors" and bot == "paper")
+    ):
+        print("You Win!")
+
+    else:
+        print("Bot Wins!")
+
+def coding_tip():
+
+    tips = [
+        "Practice coding every day.",
+        "Build projects to improve.",
+        "Read error messages carefully.",
+        "Learn Git and GitHub."
+    ]
+
+    print(random.choice(tips))
+
+while True:
+
+    user = input("\nYou: ").lower().strip()
+
+    if user == "bye":
+
+        print(random.choice(bye_responses))
+        break
+
+    elif user == "help":
+
+        show_help()
+
+    elif "hello" in user or "hi" in user:
+
+        print(random.choice(hello_responses))
+
+    elif "how are you" in user:
+
+        print("I am doing great!")
+
+    elif "what is your name" in user:
+
+        print("My name is", bot_name)
+
+    elif user == "time":
+
+        current_time = datetime.datetime.now().strftime("%I:%M %p")
+
+        print(current_time)
+
+    elif user == "date":
+
+        current_date = datetime.datetime.now().strftime("%d-%m-%Y")
+
+        print(current_date)
+
+    elif user == "joke":
+
+        print(random.choice(jokes))
+
+    elif user == "fact":
+
+        print(random.choice(facts))
+
+    elif user == "motivate me":
+
+        print(random.choice(quotes))
+
+    elif user == "coin flip":
+
+        print(random.choice(["Heads", "Tails"]))
+
+    elif user == "dice":
+
+        print("🎲", random.randint(1, 6))
+
+    elif user == "riddle":
+
+        print("What has keys but no locks?")
+
+        answer = input("Answer: ").lower()
+
+        if answer == "keyboard":
+            print("Correct!")
+
+        else:
+            print("Wrong answer")
+
+    elif user.startswith("my name is"):
+
+        user_name = user.replace("my name is", "").title()
+
+        print("Nice to meet you", user_name)
+
+    elif user.startswith("remember my color"):
+
+        favorite_color = user.replace("remember my color", "")
+
+        print("Favorite color saved")
+
+    elif user == "what is my color":
+
+        if favorite_color:
+            print("Your favorite color is", favorite_color)
+
+        else:
+            print("No color saved")
+
+    elif user.startswith("remember my food"):
+
+        favorite_food = user.replace("remember my food", "")
+
+        print("Favorite food saved")
+
+    elif user == "what is my food":
+
+        if favorite_food:
+            print("Your favorite food is", favorite_food)
+
+        else:
+            print("No food saved")
+
+    elif user.startswith("remember my movie"):
+
+        favorite_movie = user.replace("remember my movie", "")
+
+        print("Favorite movie saved")
+
+    elif user == "what is my movie":
+
+        if favorite_movie:
+            print("Your favorite movie is", favorite_movie)
+
+        else:
+            print("No movie saved")
+
+    elif user == "calculator":
+
+        calculator()
+
+    elif user == "square root":
+
+        square_root()
+
+    elif user == "power":
+
+        power()
+
+    elif user == "random number":
+
+        random_number()
+
+    elif user == "password generator":
+
+        password_generator()
+
+    elif user == "temperature convert":
+
+        temperature_convert()
+
+    elif user == "bmi":
+
+        bmi()
+
+    elif user == "countdown":
+
+        countdown()
+
+    elif user == "open google":
+
+        webbrowser.open("https://google.com")
+
+    elif user == "open youtube":
+
+        webbrowser.open("https://youtube.com")
+
+    elif user == "open github":
+
+        webbrowser.open("https://github.com")
+
+    elif user == "open chatgpt":
+
+        webbrowser.open("https://chatgpt.com")
+
+    elif user == "guess number":
+
+        guess_number()
+
+    elif user == "rock paper scissors":
+
+        rock_paper_scissors()
+
+    elif user == "add note":
+
+        note = input("Enter note: ")
+
+        notes.append(note)
+
+        print("Note added")
+
+    elif user == "show notes":
+
+        if len(notes) == 0:
+
+            print("No notes found")
+
+        else:
+
+            for i, note in enumerate(notes, start=1):
+
+                print(i, "-", note)
+
+    elif user == "clear notes":
+
+        notes.clear()
+
+        print("All notes cleared")
+
+    elif user == "about python":
+
+        print("""
+Python is a powerful programming language.
+
+Uses:
+AI
+Web Development
+Cybersecurity
+Automation
+Game Development
+""")
+
+    elif user == "about ai":
+
+        print("""
+Artificial Intelligence allows machines
+to learn and make decisions.
+""")
+
+    elif user == "coding tip":
+
+        coding_tip()
+
+    elif user == "system info":
+
+        print("OS Name:", os.name)
+
+    elif user == "clear":
+
+        print("\n" * 50)
+
+    else:
+
+        print("Sorry, I don't understand that.")
